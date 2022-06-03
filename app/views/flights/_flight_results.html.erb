@@ -1,0 +1,10 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Flight Results</h1>
+    <% @flight_results.order(:departing_at).each do |flight| %>
+      <div class="level">
+        <% flight.departing_at %>
+      </div>
+    <% end %>
+  </div>
+</section>
