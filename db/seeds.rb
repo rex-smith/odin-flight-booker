@@ -6,7 +6,92 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+require 'faker'
+
+DURATIONS = {
+  'SFO' => {
+    'JFK' => 327,
+    'ATL' => 292,
+    'SLC' => 110,
+    'DET' => 271,
+    'BOS' => 348,
+    'MIA' => 352,
+    'LAX' => 175,
+    'LGA' => 330,
+    'PDX' => 182
+  },
+  'JFK' => {
+    'SFO' => 327,
+    'ATL' => 182,
+    'SLC' => 292,
+    'DET' => 121,
+    'BOS' => 45,
+    'MIA' => 217,
+    'LAX' => 358,
+    'PDX' => 329
+  },
+  'ATL' => {
+    'SFO' => 245,
+    'JFK' => 182,
+    'LGA' => 180,
+    'SLC' => 230,
+    'DET' => 165,
+    'BOS' => 221,
+    'MIA' => 105,
+    'LAX' => 358,
+    'PDX' => 329
+  },
+  'SLC' => {
+    'SFO' => 105,
+    'JFK' => 221,
+    'LAX' => 55,
+    'ATL' => 204,
+  },
+  'DET' => {
+    'SFO' => 245,
+    'JFK' => 182,
+    'SLC' => 230,
+    'ATL' => 165,
+  },
+  'BOS' => {
+    'SFO' => 355,
+    'JFK' => 45,
+    'LGA' => 35,
+    'SLC' => 269,
+    'ATL' => 165,
+  },
+  'MIA' => {
+    'SFO' => 245,
+    'JFK' => 182,
+    'SLC' => 230,
+    'ATL' => 165,
+  },
+  'LAX' => {
+    'SFO' => 105,
+    'JFK' => 229,
+    'SLC' => 55,
+    'ATL' => 205,
+  },
+  'PDX' => {
+    'SFO' => 105,
+    'JFK' => 245,
+    'SLC' => 134,
+    'ATL' => 268,
+  }
+}
+
+def get_duration(origin, destination)
+  DURATIONS[origin.name][destination.name]
+end
+
+def random_time
+  Faker::Time.between(from: DateTime.now - 1, to: DateTime.now)
+end
+
 Airport.destroy_all
+Flight.destroy_all
+# Booking.destroy_all
+# Passenger.destroy_all
 
 Airport.create!([{
   name: "SFO"
@@ -39,36 +124,18 @@ Airport.create!([{
   name: "PDX"
 }])
 
-p "Created #{Airport.count} airports"
 
-Flight.destroy_all
-
-Flight.create!([
-  { departure_airport_id: 1, arrival_airport_id: 2, duration: '04:45:00', departing_at: '2022-07-21 07:35:00' },
-  { departure_airport_id: 2, arrival_airport_id: 1, duration: '05:15:00', departing_at: '2022-07-21 18:20:00' },
-  { departure_airport_id: 1, arrival_airport_id: 2, duration: '04:45:00', departing_at: '2022-07-22 07:35:00' },
-  { departure_airport_id: 1, arrival_airport_id: 2, duration: '04:45:00', departing_at: '2022-07-23 07:35:00' },
-  { departure_airport_id: 1, arrival_airport_id: 2, duration: '04:45:00', departing_at: '2022-07-26 07:35:00' },
-  { departure_airport_id: 1, arrival_airport_id: 2, duration: '04:45:00', departing_at: '2022-07-28 07:35:00' },
-  { departure_airport_id: 2, arrival_airport_id: 1, duration: '05:15:00', departing_at: '2022-07-26 18:20:00' },
-  { departure_airport_id: 1, arrival_airport_id: 3, duration: '04:15:00', departing_at: '2022-07-21 10:40:00' },
-  { departure_airport_id: 1, arrival_airport_id: 3, duration: '04:15:00', departing_at: '2022-07-23 10:40:00' },
-  { departure_airport_id: 1, arrival_airport_id: 3, duration: '04:15:00', departing_at: '2022-07-24 10:40:00' },
-  { departure_airport_id: 1, arrival_airport_id: 3, duration: '04:15:00', departing_at: '2022-07-27 10:40:00' },
-  { departure_airport_id: 1, arrival_airport_id: 4, duration: '01:45:00', departing_at: '2022-07-22 12:15:00' },
-  { departure_airport_id: 1, arrival_airport_id: 4, duration: '01:45:00', departing_at: '2022-07-24 12:15:00' },
-  { departure_airport_id: 1, arrival_airport_id: 4, duration: '01:45:00', departing_at: '2022-07-25 12:15:00' },
-  { departure_airport_id: 1, arrival_airport_id: 4, duration: '01:45:00', departing_at: '2022-07-22 16:00:00' },
-  { departure_airport_id: 1, arrival_airport_id: 4, duration: '01:45:00', departing_at: '2022-07-21 18:25:00' },
-  { departure_airport_id: 2, arrival_airport_id: 3, duration: '02:30:00', departing_at: '2022-07-21 08:45:00' },
-  { departure_airport_id: 2, arrival_airport_id: 3, duration: '02:30:00', departing_at: '2022-07-21 10:45:00' },
-  { departure_airport_id: 2, arrival_airport_id: 3, duration: '02:30:00', departing_at: '2022-07-25 08:45:00' },
-  { departure_airport_id: 3, arrival_airport_id: 1, duration: '04:15:00', departing_at: '2022-07-23 07:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 1, duration: '04:15:00', departing_at: '2022-07-23 07:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 1, duration: '04:15:00', departing_at: '2022-07-25 07:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 4, duration: '03:35:00', departing_at: '2022-07-21 13:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 4, duration: '03:35:00', departing_at: '2022-07-22 13:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 4, duration: '03:35:00', departing_at: '2022-07-23 13:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 4, duration: '03:35:00', departing_at: '2022-07-23 16:35:00' },
-  { departure_airport_id: 3, arrival_airport_id: 4, duration: '03:35:00', departing_at: '2022-07-25 13:35:00' }
-  ])
+Date.new(2022, 6, 4).upto(Date.new(2022, 6, 21)).each do |date|
+  Airport.all.each do |origin|
+    Airport.all.each do |destination|
+      next if origin == destination || DURATIONS.dig(origin.name, destination.name).nil?
+      2.times { Flight.create(
+                              departure_airport_id: origin.id,
+                              arrival_airport_id: destination.id,
+                              duration: get_duration(origin, destination),
+                              departing_on: date,
+                              time: random_time
+      )}
+    end
+  end
+end
