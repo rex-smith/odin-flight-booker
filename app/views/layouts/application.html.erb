@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OdinFlightBooker</title>
+    <title>FlightBooker</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,35 @@
   </head>
 
   <body>
+    <nav class="navbar is-primary has-shadow" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <%= link_to 'Belta.com', root_path, class: 'navbar-item' %>
+        <a role="button" class="navbar-burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a href="" class="navbar-item">
+            Home
+          </a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href="" class="button is-link">
+                Sign up
+              </a>
+              <a href="" class="button is-light">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
