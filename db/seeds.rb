@@ -40,3 +40,9 @@ Airport.create!([{
 }])
 
 p "Created #{Airport.count} airports"
+
+Flight.destroy_all
+
+Flight.create!([{
+  departure_airport_id: 1, arrival_airport_id: 2, duration: , departing_on: 
+}])
