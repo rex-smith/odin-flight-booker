@@ -1,15 +1,33 @@
-<section class="section">
-  <div class="container">
-    <h1 class="title">Flight Results</h1>
-    <% @flight_results.order(:departing_on).each do |flight| %>
-      <div class="box is-size-5">
-        <div class="columns">
-          <div class="column">
-            <div class="content"><strong>Departure Time:</strong> <%= flight.time.strftime("%l:%M %p") %></div>
-            <div class="content"><strong>Duration: </strong><%= flight.duration / 60 %> hrs <%= (flight.duration % 60) %> mins</div>
+<% if @flight_results.any? %>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Flight Results</h1>
+
+      <%= form_with url: '/bookings/new', method: :get, local: true do |f| %>
+        <%= f.hidden_field :passengers, value: params[:passengers] %>
+
+        <% @flight_results.order(:departing_on).each do |flight| %>
+          <div class="box is-size-5">
+            <div class="columns is-vcentered">
+              <div class="column is-1">
+                <%= radio_button_tag(:flight, flight.id, {checked: true}) %>
+              </div>
+              <div class="column">
+                <div class="content"><strong>Departure Time:</strong> <%= flight.time.strftime("%l:%M %p") %></div>
+                <div class="content"><strong>Duration: </strong><%= flight.duration / 60 %> hrs <%= (flight.duration % 60) %> mins</div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+
+        <div class="container">
+          <div class="control">
+            <%= f.submit "Create Booking", class: "button is-primary" %>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-</section>
+      <% end %>
+
+    </div>
+  </section>
+<% end %>

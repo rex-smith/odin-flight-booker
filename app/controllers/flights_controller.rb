@@ -1,8 +1,7 @@
 class FlightsController < ApplicationController
   def index
-    @departure_airports = Flight.all.map{ |flight| [ flight.departure_airport.name, flight.departure_airport.id ]}.uniq
-    @arrival_airports = Flight.all.map{ |flight| [ flight.arrival_airport.name, flight.arrival_airport.id ]}.uniq
-    @departure_dates = Flight.all.order(:departing_on).map { |flight| [flight.departing_on.strftime("%a, %d %b %Y"), flight.departing_on] }.uniq
+    @airports = Airport.all.map{ |airport| [ airport.name, airport.id ]}
+    @departure_dates = Flight.select(:departing_on).distinct.order(:departing_on).map { |flight| [flight.departing_on.strftime("%a, %d %b %Y"), flight.departing_on] }
     @num_passengers = (1..4).map{ |i| [i, i] }
 
     # Verifying params sent through and finding available flights
