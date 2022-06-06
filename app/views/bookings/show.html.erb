@@ -1,0 +1,35 @@
+<% @flight = Flight.find(@booking.flight_id) %>
+<div class="section">
+  <div class="container">
+    <div class="box">
+      <div class="title is-1">
+        Booking:
+      </div>
+      <div class="content">
+        <div class="content">
+          <strong>Flight Number:</strong> <%= @flight.id %>
+        </div>
+          <div class="content">
+          <strong>Departure Airport:</strong> <%= @flight.departure_airport.name %>
+        </div>
+          <div class="content">
+          <strong>Arrival Airport:</strong> <%= @flight.arrival_airport.name %>
+        </div>
+          <div class="content">
+          <strong>Departure Date:</strong> <%= @flight.departing_on.strftime("%a, %d %b %Y") %>
+        </div>
+      </div>
+      <div class="title is-3">
+        Passengers:
+      </div>
+      <div class="block">
+        <% @booking.passengers.each_with_index do |passenger, index| %>
+          <div class="subtitle is-4">Passenger <%= index+1 %></div>
+          <div class="content">Name: <%= passenger.name %></div>
+          <div class="content">Email: <%= passenger.email %></div>
+        <% end %>
+      </div>
+      <%= link_to 'Book another flight', root_path, class: 'button is-large is-primary' %>
+    </div>
+  </div>
+</div>

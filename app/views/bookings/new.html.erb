@@ -1,0 +1,43 @@
+<div class="columns is-centered mt-2">
+  <div class="column is-one-third">
+    <div class="box">
+    <div class="title">New Booking</div>
+      <div class="content">
+        <strong>Flight Number:</strong> <%= @flight.id %>
+      </div>
+        <div class="content">
+        <strong>Departure Airport:</strong> <%= @flight.departure_airport.name %>
+      </div>
+        <div class="content">
+        <strong>Arrival Airport:</strong> <%= @flight.arrival_airport.name %>
+      </div>
+        <div class="content">
+        <strong>Departure Date:</strong> <%= @flight.departing_on.strftime("%a, %d %b %Y") %>
+      </div>
+      <%= form_with model: @booking, local: true do |form| %>
+        <%= form.hidden_field :flight_id, value: params[:flight_id] %>
+          <% i = 1 %>
+          <%= form.fields_for :passengers do |passenger_form| %>
+            <div class="field">
+              <div class="subtitle">Passenger <%= i %></div>
+              <div class="control">
+                <%= passenger_form.label :name, 'Name:', class: 'label' %>
+                <%= passenger_form.text_field :name, placeholder: "Passenger name", required: true, class: 'input' %>
+              </div>
+              <div class="control">
+                <%= passenger_form.label :email, 'Email:', class: 'label' %>
+                <%= passenger_form.email_field :email, placeholder: "Passenger email", required: true, class: 'input' %>
+              </div>
+              <% i += 1 %>
+            </div>
+          <% end %>
+        <div class="field">
+          <div class="control">
+            <%= form.submit "Book Flight", class: "button is-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

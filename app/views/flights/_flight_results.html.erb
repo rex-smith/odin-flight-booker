@@ -10,7 +10,7 @@
           <div class="box is-size-5">
             <div class="columns is-vcentered">
               <div class="column is-1">
-                <%= radio_button_tag(:flight, flight.id, {checked: true}) %>
+                <%= radio_button_tag(:flight_id, flight.id, {checked: true}) %>
               </div>
               <div class="column">
                 <div class="content"><strong>Departure Time:</strong> <%= flight.time.strftime("%l:%M %p") %></div>
