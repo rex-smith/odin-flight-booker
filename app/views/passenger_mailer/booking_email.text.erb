@@ -1,0 +1,16 @@
+BOOKING CONFIRMATION
+Thank you for booking with Felta
+============================================
+Your Booking Details:
+<%= @passenger.name %>
+<%= @passenger.email %>
+
+Departure Airport: <%= @booking.flight.departure_airport.name %>
+Arrival Airport: <%= @booking.flight.arrival_airport.name %>
+Date: <%= @booking.flight.departing_on %>
+Scheduled Departure: <%= @booking.flight.time %>
+Flight Duration: <%= @booking.flight.duration %>
+
+Thank you for booking, please let us know how we did!
+
+Modify Booking: <%= booking_url(@booking) %>

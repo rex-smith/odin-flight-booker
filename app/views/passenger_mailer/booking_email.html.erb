@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmation</title>
+</head>
+<body>
+  <h1>Booking Confirmation</h1>
+  <h3>Thank you for Booking with Felta</h3>
+  <p>Your Booking Details:</p>
+  <p><%= @passenger.name %></p>
+  <p><%= @passenger.email %></p>
+  <br>
+  <div class="container">
+    <ul>
+      <li>Departure Airport: <%= @booking.flight.departure_airport.name %></li>
+      <li>Arrival Airport: <%= @booking.flight.arrival_airport.name %></li>
+      <li>Date: <%= @booking.flight.departing_on %></li>
+      <li>Scheduled Departure: <%= @booking.flight.time %></li>
+      <li>Flight Duration: <%= @booking.flight.duration %></li>
+    </ul>
+  </div>
+  <p>Thank you for booking, and please let us know how we did!</p>
+  <div class="container">
+    <%= button_to 'See Booking', booking_url(@booking), class: "button" %>
+  </div>
+</body>
+</html>
